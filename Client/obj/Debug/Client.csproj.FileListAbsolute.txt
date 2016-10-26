@@ -1,0 +1,14 @@
+F:\School\GoodBikeApp\Client\bin\Debug\Client.exe.config
+F:\School\GoodBikeApp\Client\bin\Debug\Client.exe
+F:\School\GoodBikeApp\Client\bin\Debug\Client.pdb
+F:\School\GoodBikeApp\Client\bin\Debug\Newtonsoft.Json.dll
+F:\School\GoodBikeApp\Client\bin\Debug\Simulator.exe
+F:\School\GoodBikeApp\Client\bin\Debug\Settings.exe
+F:\School\GoodBikeApp\Client\bin\Debug\Simulator.pdb
+F:\School\GoodBikeApp\Client\bin\Debug\Newtonsoft.Json.xml
+F:\School\GoodBikeApp\Client\bin\Debug\Settings.pdb
+F:\School\GoodBikeApp\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+F:\School\GoodBikeApp\Client\obj\Debug\Client.Properties.Resources.resources
+F:\School\GoodBikeApp\Client\obj\Debug\Client.csproj.GenerateResource.Cache
+F:\School\GoodBikeApp\Client\obj\Debug\Client.exe
+F:\School\GoodBikeApp\Client\obj\Debug\Client.pdb

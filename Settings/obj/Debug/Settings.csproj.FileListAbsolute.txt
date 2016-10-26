@@ -1,0 +1,6 @@
+F:\School\GoodBikeApp\Settings\bin\Debug\Settings.exe.config
+F:\School\GoodBikeApp\Settings\bin\Debug\Settings.exe
+F:\School\GoodBikeApp\Settings\bin\Debug\Settings.pdb
+F:\School\GoodBikeApp\Settings\obj\Debug\Settings.csprojResolveAssemblyReference.cache
+F:\School\GoodBikeApp\Settings\obj\Debug\Settings.exe
+F:\School\GoodBikeApp\Settings\obj\Debug\Settings.pdb

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -59,6 +61,11 @@ namespace Client
             Buffer.BlockCopy(tempBuf, 0, _buffer, offset, 2);
         }
 
+        public ushort ReadUShort(int offset)
+        {
+            return BitConverter.ToUInt16(_buffer, offset);
+        }
+
         public void WriteUInt(uint value, int offset)
         {
             byte[] tempBuf = new byte[4];
@@ -72,14 +79,60 @@ namespace Client
             tempBuf = Encoding.UTF8.GetBytes(value);
             Buffer.BlockCopy(tempBuf, 0, _buffer, offset, value.Length);
         }
+        
+        public string ReadString(int offset, int count)
+        {
+            return Encoding.UTF8.GetString(_buffer, offset, count);
+        }
 
         public void WriteList(List<string> value, int offset)
         {
-            byte[] tempBuf = value.SelectMany(s => System.Text.Encoding.UTF8.GetBytes(s)).ToArray();
-            int length = value.Sum(item => Encoding.Default.GetByteCount(item.ToString()));
-            Buffer.BlockCopy(tempBuf,0,_buffer,offset,length);
+            var binFormatter = new BinaryFormatter();
+            var mStream = new MemoryStream();
+            binFormatter.Serialize(mStream, value);
+
+            _buffer = mStream.ToArray();
         }
-        
+
+        public List<string> ReadList(int offset, int count)
+        {
+            var mStream = new MemoryStream();
+            var binFormatter = new BinaryFormatter();
+
+            mStream.Write(_buffer, 0, _buffer.Length);
+            mStream.Position = 0;
+
+            List<string> dataList = binFormatter.Deserialize(mStream) as List<string>;
+
+            return dataList;
+        }
+
+        public void WriteObject(object obj, int offset)
+        {
+            if (obj != null)
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    bf.Serialize(ms, obj);
+                    byte[] temBuf = ms.ToArray();
+
+                    Array.Copy(temBuf, 0, _buffer, offset, temBuf.Length);
+
+                }
+            }
+        }
+
+        public Object ReadObject()
+        {
+            MemoryStream ms = new MemoryStream();
+            BinaryFormatter bf = new BinaryFormatter();
+            ms.Write(_buffer, 0, _buffer.Length);
+            ms.Seek(0, SeekOrigin.Begin);
+            Object obj = (Object)bf.Deserialize(ms);
+            return obj;
+        }
+
         public void RewriteHeader(ushort length, ushort type)
         {
             WriteUShort(length, 0);
@@ -96,15 +149,15 @@ namespace Client
     {
         private string _message;
         private List<string> _data;
+        private Object _obj;
         
         public Message(string message) : base(length: (ushort)(4 + message.Length), type: 2000)
         {
             Text = message;
         }
 
-        public Message(List<string> message) : base(length: (ushort)10, type: 500)
+        public Message(List<string> message) : base(length: (ushort)1024, type: 500)
         {
-            WriteList(message,0);
             ListData = message;
         }
 
@@ -113,12 +166,14 @@ namespace Client
             
         }
 
+        public Message(Object obj) : base(length: (ushort) 1024, type: 100)
+        {
+            this.obj = obj;
+        }
+
         public string Text
         {
-            /* return ReadString(4, Data.Length - 4)
-             *  ^ Server read
-             */
-            get { return _message; }
+            get { return ReadString(4, Data.Length - 4); }
             set
             {
                 _message = value;
@@ -128,11 +183,21 @@ namespace Client
 
         public List<string> ListData
         {
-            get { return _data; }
+            get { return ReadList(4, 1024); }
             set
             {
                 _data = value;
                 WriteList(value, 4);
+            }
+        }
+
+        public Object obj
+        {
+            get { return ReadObject(); }
+            set
+            {
+                _obj = value;
+                WriteObject(value, 4);
             }
         }
     }

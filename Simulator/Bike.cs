@@ -16,7 +16,6 @@ namespace BikeAppA3
 
     List<string> ReadData();
     void SendCommand(string command);
-    string SaveToDatabase(string query);
 
   }
 }

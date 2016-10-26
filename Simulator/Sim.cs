@@ -49,7 +49,7 @@ namespace BikeAppA3
     public List<string> ReadData()
     {
         GenerateData();
-        System.Collections.Generic.List<string> data = new List<string>();
+        List<string> data = new List<string>();
         try
         {
             data.Add(Pulse.ToString());
@@ -96,7 +96,7 @@ namespace BikeAppA3
         case "VE":
           break;
         case "VS":
-          Console.WriteLine("Expected value; FORMA VS <Value>");
+          Console.WriteLine("Expected value; FORMAT VS <Value>");
               break;
         case "VS%":
           break;
@@ -105,22 +105,12 @@ namespace BikeAppA3
           break;
       }
     }
-
-    /**
-    *** Saves the data to the database
-    *** @TODO figure out table fields, query, database class usage etc.
-    **/
-
-    public string SaveToDatabase(string query)
-    {
-      throw new NotImplementedException();
-    }
-
+       
+         
     /**
     *** GenerateData generates the data to fill into the parameters.
     *** This is needed because the Simulation does not get any input values from a machine.
     **/
-
     public void GenerateData()
     {
       Pulse = rndInt(0, 120);
@@ -132,7 +122,6 @@ namespace BikeAppA3
     /**
     *** @return string containing all parameters(data)
     **/
-
     public override string ToString()
     {
         return String.Format("Pulse: {0} - RPM: {1} - Speed: {2} - Distance: {3}",

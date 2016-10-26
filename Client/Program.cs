@@ -13,14 +13,22 @@ namespace Client
         static void Main(string[] args)
         {
             Client = new Client();
-
-            string msg = "Hello!";
-            Message packet = new Message(msg);
+            //*
+            List<string> testList = new List<string>();
+            testList.Add("Hoi");
+            testList.Add("Hello");
+            testList.Add("Oui");
+            testList.Add("Swag");
+            testList.Add("KK");
+            Message packet = new Message(testList);
             Client.conn.sendData(packet.Data);
-
+            /*/
+            TestClass sendObj = new TestClass();
+            Message packet = new Message((object)sendObj);
+            Client.conn.sendData(packet.Data);//*/
             while (true)
             {
-                List<string> data = Client.bike.ReadData();
+                //List<string> data = Client.bike.ReadData();
                 //Client.conn.sendData(data);
                 //sendToVR(Client.bike.Speed);
             }

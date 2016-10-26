@@ -55,6 +55,20 @@ namespace Server
         {
             try
             {
+                Socket clientSocket = _serverSocket.EndAccept(ar);
+                _buffer = new byte[1024];
+                clientSocket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, ReceiveCallback, clientSocket);
+                Accept();
+                AppendToTextBox("Client connected!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error: {0}.", e);
+            }
+
+            /** Myk's code
+            try
+            {
                 //stops accepting connections?
                 Socket socket = _serverSocket.EndAccept(ar);
                 _clientSockets.Add(socket);
@@ -73,12 +87,28 @@ namespace Server
             catch (Exception e)
             {
                 MessageBox.Show("AcceptCallback: " + e.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            }//*/
+        }
+
+        public void Accept()
+        {
+            _serverSocket.BeginAccept(AcceptCallback, null);
         }
 
         //Does something with the data that was received, change this to change the functionality
         private void ReceiveCallback(IAsyncResult ar)
         {
+            Socket clientSocket = ar.AsyncState as Socket;
+            int bufferSize = clientSocket.EndReceive(ar);
+            byte[] packet = new byte[bufferSize];
+            Array.Copy(_buffer, packet, packet.Length);
+
+            PacketHandler.Handle(packet, clientSocket);
+
+            _buffer = new byte[1024];
+            clientSocket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, ReceiveCallback, clientSocket);
+
+            /** Myk's code
             try
             {
                 Socket socket = (Socket)ar.AsyncState;
@@ -112,7 +142,7 @@ namespace Server
             catch (Exception e)
             {
                 MessageBox.Show("ReceiveCallback: " + e.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            }//*/
         }
 
         private void SendCallback(IAsyncResult ar)

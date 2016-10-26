@@ -26,7 +26,6 @@ namespace Client
             }
             else
             {
-                Console.WriteLine("Starting Simulation!");
                 bike = new Sim();
             }
         }
@@ -54,10 +53,6 @@ namespace Client
                 Console.WriteLine("Connected!");
                 _buffer = new byte[1024];
                 _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, ReceivedCallBack, null);
-
-                #region Initial Packet
-
-                #endregion
             }
             else
             {

@@ -1,0 +1,11 @@
+F:\School\BikeAppA3-master\Simulator\bin\Debug\Simulator.exe.config
+F:\School\GoodBikeApp\Simulator\bin\Debug\Simulator.exe.config
+F:\School\GoodBikeApp\Simulator\bin\Debug\Simulator.exe
+F:\School\GoodBikeApp\Simulator\bin\Debug\Simulator.pdb
+F:\School\GoodBikeApp\Simulator\bin\Debug\Newtonsoft.Json.dll
+F:\School\GoodBikeApp\Simulator\bin\Debug\Newtonsoft.Json.xml
+F:\School\GoodBikeApp\Simulator\obj\Debug\Simulator.csprojResolveAssemblyReference.cache
+F:\School\GoodBikeApp\Simulator\obj\Debug\Simulator.exe
+F:\School\GoodBikeApp\Simulator\obj\Debug\Simulator.pdb
+F:\School\GoodBikeApp\Simulator\bin\Debug\Settings.exe
+F:\School\GoodBikeApp\Simulator\bin\Debug\Settings.pdb

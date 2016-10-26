@@ -169,7 +169,7 @@
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(118, 20);
             this.textBoxPort.TabIndex = 11;
-            this.textBoxPort.Text = "6666";
+            this.textBoxPort.Text = "6556";
             // 
             // ServerForm
             // 
