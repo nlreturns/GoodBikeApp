@@ -12,3 +12,4 @@ F:\School\GoodBikeApp\Client\obj\Debug\Client.Properties.Resources.resources
 F:\School\GoodBikeApp\Client\obj\Debug\Client.csproj.GenerateResource.Cache
 F:\School\GoodBikeApp\Client\obj\Debug\Client.exe
 F:\School\GoodBikeApp\Client\obj\Debug\Client.pdb
+F:\School\GoodBikeApp\Client\obj\Debug\Client.ClientGUI.resources

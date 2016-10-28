@@ -4,34 +4,47 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BikeAppA3;
 
 namespace Client
 {
-    class Client
+    public class Client
     {
         public Bike bike;
         public ClientSocket conn;
+        public int age, limit;
+        public string name;
 
-        public Client()
+        public Client(int age)
         {
+            name = "Testnaam";
+            this.age = age;
+            // zelf verzonnen (niet aangeleverd)
+            limit = 230 - age;
             conn = new ClientSocket();
             conn.Connect("127.0.0.1", 6556);
-            bike = new BikeConnection();
-            if(bike.Connected)
-            {
+            Thread.Sleep(1000);
+        }
 
+        public void ConnectBike()
+        {
+            bike = new BikeConnection();
+            if (bike.Connected)
+            {
+                Console.WriteLine("Bike");
             }
             else
             {
+                Console.WriteLine("Sim");
                 bike = new Sim();
             }
         }
     }
 
-    class ClientSocket
+    public class ClientSocket
     {
         public Socket _socket;
         private byte[] _buffer;

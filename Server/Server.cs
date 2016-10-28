@@ -22,7 +22,6 @@ namespace Server
     class ServerSocket
     {
         private Socket _serverSocket;
-        private Socket _clientSocket;
 
         private byte[] _buffer;
 
@@ -49,10 +48,6 @@ namespace Server
                 _buffer = new byte[1024];
                 clientSocket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, ReceiveCallBack, clientSocket);
                 Accept();
-                /* Myk's code
-                _clientSocket = _serverSocket.EndAccept(AR);
-                _buffer = new byte[_clientSocket.ReceiveBufferSize];
-                _clientSocket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallBack), null);//*/
             }
             catch(Exception e)
             {
@@ -76,16 +71,6 @@ namespace Server
 
             _buffer = new byte[1024];
             clientSocket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, ReceiveCallBack, clientSocket);
-
-            /* Myk's code
-            try
-            {
-                string text = Encoding.ASCII.GetString(_buffer);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error: {0}.", e);
-            }//*/
         }
     }
 }

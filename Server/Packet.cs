@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Client;
+using Client = Client.Client;
 
 namespace Server
 {
@@ -16,6 +19,7 @@ namespace Server
 
     static class PacketHandler
     {
+        private static string ClientName;
         public static void Handle(byte[] packet, Socket clientSocket)
         {
             ushort packetLength = BitConverter.ToUInt16(packet, 0);
@@ -41,6 +45,7 @@ namespace Server
                     msg = new Message(packet);
                     string received = msg.Text;
                     Console.WriteLine("[Server received] string: {0}", received);
+                    ClientName = msg.Text;
                     break;
                 // receiving Object
                 case 100:
@@ -53,7 +58,7 @@ namespace Server
 
         private static void SaveData(List<string> data )
         {
-            
+            //@TODO FILE IO
         }
 
     }

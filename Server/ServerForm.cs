@@ -65,29 +65,6 @@ namespace Server
             {
                 Console.WriteLine("Error: {0}.", e);
             }
-
-            /** Myk's code
-            try
-            {
-                //stops accepting connections?
-                Socket socket = _serverSocket.EndAccept(ar);
-                _clientSockets.Add(socket);
-                AppendToTextBox("A client has connected.");
-                //data buffer
-                _buffer = new byte[socket.ReceiveBufferSize];
-                //Client socket starts to recieve data.
-                socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
-                //Server socket starts to recieve data.
-                _serverSocket.BeginAccept(new AsyncCallback(AcceptCallback), null);
-            }
-            catch (ObjectDisposedException e)
-            {
-                Console.WriteLine("Object disposed Exception hoo! {0}", e);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("AcceptCallback: " + e.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }//*/
         }
 
         public void Accept()
@@ -107,42 +84,7 @@ namespace Server
 
             _buffer = new byte[1024];
             clientSocket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, ReceiveCallback, clientSocket);
-
-            /** Myk's code
-            try
-            {
-                Socket socket = (Socket)ar.AsyncState;
-                int received = socket.EndReceive(ar);
-                //Stops it from breaking when nothing has been sent.
-                if (received == 0)
-                {
-                    return;
-                }
-                byte[] dataBuf = new byte[received];
-                Array.Copy(_buffer, dataBuf, received);
-                //Changes bytes to String
-                String text = Encoding.ASCII.GetString(_buffer);
-                //Checks if the text contains a certain string
-                if (text.Contains("-exit"))
-                {
-                    socket.Close();
-                    _serverSocket.Close();
-                    Application.Exit();
-                }
-                AppendToTextBox("Client says: " + text);
-                //Makes the server able to receive again.
-                byte[] data = Encoding.ASCII.GetBytes(text);
-                socket.BeginSend(data, 0, data.Length, SocketFlags.None, new AsyncCallback(SendCallback), socket);
-                socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), socket);
-            }
-            catch (ObjectDisposedException e)
-            {
-                Console.WriteLine("Object Disposed Exception yay! {0}", e);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("ReceiveCallback: " + e.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }//*/
+            
         }
 
         private void SendCallback(IAsyncResult ar)
@@ -154,8 +96,7 @@ namespace Server
             }
             catch (SocketException e)
             {
-                Console.WriteLine("Client is gone.");
-                //TO-DO find a proper fix
+                Console.WriteLine("Client Disconnected. {0}", e);
             }
 
         }
