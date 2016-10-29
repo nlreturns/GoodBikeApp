@@ -14,20 +14,24 @@ namespace Client
         static void Main(string[] args)
         {
             Client = new Client(15);
-            //Application.Run(new ClientGUI(Client));
-            //*
+            Application.Run(new ClientGUI(Client));
+            /*
+            string name = "ClientName";
+            Message namePacket = new Message(name);
+            Client.conn.sendData(namePacket.Data);
             List<string> testList = new List<string>();
             testList.Add("Hoi");
             testList.Add("Hello");
             testList.Add("Oui");
             testList.Add("Swag");
             testList.Add("KK");
+            testList.Add("0");
             Message packet = new Message(testList);
             Client.conn.sendData(packet.Data);
-            Thread.Sleep(2000);
             List<string> secondList = new List<string>();
             secondList.Add("a");
             secondList.Add("b");
+            secondList.Add("1");
             Message packet2 = new Message(secondList);
             Client.conn.sendData(packet2.Data);
             /*

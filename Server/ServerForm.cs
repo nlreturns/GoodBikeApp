@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Net;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 /*
  * 
@@ -29,6 +33,35 @@ namespace Server
         public ServerForm()
         {
             InitializeComponent();
+            /*
+            List<string> testReceiveList = new List<string>();
+            try
+            {
+                XmlDocument xmlDocument = new XmlDocument();
+                xmlDocument.Load("ClientName-2016-10-29-15-07-0.xml");
+                string xmlString = xmlDocument.OuterXml;
+
+                using (StringReader read = new StringReader(xmlString))
+                {
+                    Type outType = typeof(List<string>);
+
+                    XmlSerializer serializer = new XmlSerializer(outType);
+                    using (XmlReader reader = new XmlTextReader(read))
+                    {
+                        testReceiveList = (List<string>)serializer.Deserialize(reader);
+                        reader.Close();
+                    }
+
+                    read.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log exception here
+            }
+            foreach(string s in testReceiveList)
+                Console.WriteLine(s);
+            //*/
         }
 
         // Starts up a server with the given IP and Port number.

@@ -6,7 +6,10 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
+using System.Xml;
 using System.Xml.Serialization;
 using Client;
 using Client = Client.Client;
@@ -45,7 +48,7 @@ namespace Server
                     msg = new Message(packet);
                     string received = msg.Text;
                     Console.WriteLine("[Server received] string: {0}", received);
-                    ClientName = msg.Text;
+                    ClientName = string.Format("{0}-{1:yyyy-MM-dd-HH-mm}", msg.Text, DateTime.Now);
                     break;
                 // receiving Object
                 case 100:
@@ -58,7 +61,24 @@ namespace Server
 
         private static void SaveData(List<string> data )
         {
-            //@TODO FILE IO
+            try
+            {
+                XmlDocument xmlDocument = new XmlDocument();
+                XmlSerializer serializer = new XmlSerializer(typeof(List<string>));
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    string FileName = string.Format("{0}-{1}.xml", ClientName, data[data.Count-1]);
+                    serializer.Serialize(stream, data);
+                    stream.Position = 0;
+                    xmlDocument.Load(stream);
+                    xmlDocument.Save(FileName);
+                    stream.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log exceptions
+            }
         }
 
     }

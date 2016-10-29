@@ -154,10 +154,14 @@ namespace Client
             // alles saven.
             Message namePacket = new Message(client.name);
             client.conn.sendData(namePacket.Data);
+            int index = 0;
             foreach (List<string> l in allData)
             {
+                l.Add(index.ToString());
                 Message packet = new Message(l);
                 client.conn.sendData(packet.Data);
+                index++;
+                Thread.Sleep(2000);
             }
         }
 
@@ -174,6 +178,22 @@ namespace Client
             });
             // add one to the total calls
             totalCalls++;
+
+            if (totalCalls == 10)
+            {
+                timer.Enabled = false;
+                heartBeats.Add(140);
+                heartBeats.Add(140);
+                heartBeats.Add(140);
+                heartBeats.Add(140);
+                heartBeats.Add(140);
+                heartBeats.Add(140);
+                heartBeats.Add(140);
+                heartBeats.Add(140);
+                heartBeats.Add(140);
+                heartBeats.Add(140);
+                EndTest();
+            }
             
             // check if heartbeat doesnt reach maximum!!
             if (Int32.Parse(data[Settings.Data.BPM]) > client.limit)
