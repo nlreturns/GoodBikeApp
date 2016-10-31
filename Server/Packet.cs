@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using System.Xml;
 using System.Xml.Serialization;
@@ -22,7 +23,7 @@ namespace Server
 
     static class PacketHandler
     {
-        private static string ClientName;
+        private static string ClientName, SubPath;
         public static void Handle(byte[] packet, Socket clientSocket)
         {
             ushort packetLength = BitConverter.ToUInt16(packet, 0);
@@ -48,7 +49,8 @@ namespace Server
                     msg = new Message(packet);
                     string received = msg.Text;
                     Console.WriteLine("[Server received] string: {0}", received);
-                    ClientName = string.Format("{0}-{1:yyyy-MM-dd-HH-mm}", msg.Text, DateTime.Now);
+                    SubPath = string.Format("{0}\\{1:MM-dd}\\", msg.Text, DateTime.Now);
+                    ClientName = string.Format("{0}{1}-{2:yyyy-MM-dd-HH-mm}",SubPath, msg.Text, DateTime.Now);
                     break;
                 // receiving Object
                 case 100:
@@ -71,6 +73,7 @@ namespace Server
                     serializer.Serialize(stream, data);
                     stream.Position = 0;
                     xmlDocument.Load(stream);
+                    System.IO.Directory.CreateDirectory(SubPath);
                     xmlDocument.Save(FileName);
                     stream.Close();
                 }
@@ -78,6 +81,7 @@ namespace Server
             catch (Exception ex)
             {
                 //Log exceptions
+                Console.WriteLine("{0}", ex);
             }
         }
 

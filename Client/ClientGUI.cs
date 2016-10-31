@@ -40,7 +40,7 @@ namespace Client
                 timer.Enabled = true;
                 button1.Text = "STOP";
                 // connect to the bike
-                client.ConnectBike();
+                client.ConnectBike(ClientName.Text, Age.Text);
                 // instruct client and set power to starting power
                 AppendToTextBox("Neem plaats op de fiets");
                 client.bike.SendCommand("PW" + Settings.Data.WARMUP);
@@ -147,7 +147,7 @@ namespace Client
 
             // calculate zuurstofverbruik
             double VO2max = (((0.00212*(Settings.Data.NORMAL + (Settings.Data.WATTADDED*times))) + 0.299)/
-                             (((0.769*average) - 48.5)*100));
+                             ((0.769*average) - 48.5))*1000;
             // apply factor
             VO2max *= factor;
             AppendToTextBox(VO2max.ToString() + " is uw resultaat.");
@@ -161,99 +161,116 @@ namespace Client
                 Message packet = new Message(l);
                 client.conn.sendData(packet.Data);
                 index++;
-                Thread.Sleep(2000);
+                Thread.Sleep(100);
             }
         }
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            // get the current data
-            List<string> data = client.bike.ReadData();
-            // save it in the total list
-            allData.Add(data);
-            // set the rounds per minute
-            this.Invoke((MethodInvoker) delegate
+            try
             {
-                RPM.Text = data[Settings.Data.RPM];
-            });
-            // add one to the total calls
-            totalCalls++;
+                // get the current data
+                List<string> data = client.bike.ReadData();
 
-            if (totalCalls == 10)
-            {
-                timer.Enabled = false;
-                heartBeats.Add(140);
-                heartBeats.Add(140);
-                heartBeats.Add(140);
-                heartBeats.Add(140);
-                heartBeats.Add(140);
-                heartBeats.Add(140);
-                heartBeats.Add(140);
-                heartBeats.Add(140);
-                heartBeats.Add(140);
-                heartBeats.Add(140);
-                EndTest();
-            }
+                // save it in the total list
+                allData.Add(data);
+                // set the rounds per minute
+                this.Invoke((MethodInvoker) delegate
+                {
+                    RPM.Text = data[Settings.Data.RPM];
+                });
             
-            // check if heartbeat doesnt reach maximum!!
-            if (Int32.Parse(data[Settings.Data.BPM]) > client.limit)
-            {
-                AppendToTextBox("BEINDIG DE TEST METEEN, HART RITME TE HOOG");
-                AppendToTextBox("BEINDIG DE TEST METEEN, HART RITME TE HOOG");
-                AppendToTextBox("BEINDIG DE TEST METEEN, HART RITME TE HOOG");
-                AppendToTextBox("BEINDIG DE TEST METEEN, HART RITME TE HOOG");
-                AppendToTextBox("BEINDIG DE TEST METEEN, HART RITME TE HOOG");
-                AppendToTextBox("BEINDIG DE TEST METEEN, HART RITME TE HOOG");
-                AppendToTextBox("BEINDIG DE TEST METEEN, HART RITME TE HOOG");
-            }
+                // add one to the total calls
+                totalCalls++;
+
+                /**if (totalCalls == 10)
+                {
+                    timer.Enabled = false;
+                    heartBeats.Add(140);
+                    heartBeats.Add(140);
+                    heartBeats.Add(140);
+                    heartBeats.Add(140);
+                    heartBeats.Add(140);
+                    heartBeats.Add(140);
+                    heartBeats.Add(140);
+                    heartBeats.Add(140);
+                    heartBeats.Add(140);
+                    heartBeats.Add(140);
+                    EndTest();
+                }//*/
+            
+                // check if heartbeat doesnt reach maximum!!
+                if (Int32.Parse(data[Settings.Data.BPM]) > client.limit)
+                {
+                    AppendToTextBox("BEINDIG DE TEST METEEN, HART RITME TE HOOG");
+                    AppendToTextBox("BEINDIG DE TEST METEEN, HART RITME TE HOOG");
+                    AppendToTextBox("BEINDIG DE TEST METEEN, HART RITME TE HOOG");
+                    AppendToTextBox("BEINDIG DE TEST METEEN, HART RITME TE HOOG");
+                    AppendToTextBox("BEINDIG DE TEST METEEN, HART RITME TE HOOG");
+                    AppendToTextBox("BEINDIG DE TEST METEEN, HART RITME TE HOOG");
+                    AppendToTextBox("BEINDIG DE TEST METEEN, HART RITME TE HOOG");
+                }
             
 
-            // 2 minutes warming up completed, start the test
-            if (totalCalls == Settings.Data.CALLSAT2MIN)
-            {
-                AppendToTextBox("Testbelasting word toegepast");
-                client.bike.SendCommand("PW" + Settings.Data.NORMAL);
-            }
-            // per 3, 8x opnemen
-            if (totalCalls >= Settings.Data.CALLSAT2MIN && totalCalls <= Settings.Data.CALLSAT4MIN)
-            {
-                if (totalCalls % Settings.Data.CALLSAT1MIN == 0)
-                { // get the heartbeat every minute
-                    if (Int32.Parse(data[Settings.Data.BPM]) < 130)
-                    {// if the heartbeat is below 130 
-                        // set the calls 30 seconds back and raise power
-                        times++;
-                        totalCalls -= (Settings.Data.CALLSAT30SEC);
-                        client.bike.SendCommand("PW" + (Settings.Data.NORMAL + (Settings.Data.WATTADDED*times)));
+                // 2 minutes warming up completed, start the test
+                if (totalCalls == Settings.Data.CALLSAT2MIN)
+                {
+                    AppendToTextBox("Testbelasting word toegepast");
+                    client.bike.SendCommand("PW" + Settings.Data.NORMAL);
+                }
+                // per 3, 8x opnemen
+                if (totalCalls >= Settings.Data.CALLSAT2MIN && totalCalls <= Settings.Data.CALLSAT4MIN)
+                {
+                    if (totalCalls % Settings.Data.CALLSAT1MIN == 0)
+                    { // get the heartbeat every minute
+                        if (Int32.Parse(data[Settings.Data.BPM]) < 130)
+                        {// if the heartbeat is below 130 
+                            // set the calls 30 seconds back and raise power
+                            if (Int32.Parse(data[Settings.Data.RPM]) > 40)
+                            { // check if the power is not too high
+                                times--;
+                            }
+                            times++;
+                            totalCalls -= (Settings.Data.CALLSAT15SEC);
+                            client.bike.SendCommand("PW" + (Settings.Data.NORMAL + (Settings.Data.WATTADDED*times)));
+                        }
+                        else
+                        {// add the heartbeat
+                            heartBeats.Add(Int32.Parse(data[Settings.Data.BPM]));
+                        }
+
                     }
-                    else
-                    {// add the heartbeat
+                }
+                else if (totalCalls >= Settings.Data.CALLSAT4MIN)
+                {
+                    // get the heartbeat every 15 seconds
+                    if (totalCalls % Settings.Data.CALLSAT15SEC == 0)
+                    {
                         heartBeats.Add(Int32.Parse(data[Settings.Data.BPM]));
                     }
-
                 }
-            }
-            else if (totalCalls >= Settings.Data.CALLSAT4MIN)
-            {
-                // get the heartbeat every 15 seconds
-                if (totalCalls % Settings.Data.CALLSAT15SEC == 0)
+                else
                 {
-                    heartBeats.Add(Int32.Parse(data[Settings.Data.BPM]));
+                    // still doing warming up
                 }
-            }
-            else
-            {
-                // still doing warming up
-            }
 
-            // stop making calls
-            if (totalCalls % Settings.Data.CALLSAT6MIN == 0)
+                // stop making calls
+                if (totalCalls % Settings.Data.CALLSAT6MIN == 0)
+                {
+                    timer.Enabled = false;
+                    AppendToTextBox("De cooling-down van 2 minuten begint nu. Trap op een langzame snelheid door.");
+                    AppendToTextBox("De test verstuurd ondertussen data en rond af.");
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        button1.Text = "COOLINGDOWN";
+                    });
+                    EndTest();
+                }
+
+            }
+            catch (NullReferenceException)
             {
-                timer.Enabled = false;
-                AppendToTextBox("De cooling-down van 2 minuten begint nu. Trap op een langzame snelheid door.");
-                AppendToTextBox("De test verstuurd ondertussen data en rond af.");
-                button1.Text = "COOLINGDOWN";
-                EndTest();
+                //
             }
 
         }

@@ -25,7 +25,7 @@ namespace BikeAppA3
         {
             string[] pn = SerialPort.GetPortNames();
             Console.WriteLine(pn.Length);
-            if (pn.Length == 0 || pn.Length == 1)
+            if (pn.Length == 0)
             {
                 Console.WriteLine("there is no COM port available, booting Simulation");
                 Connected = false;

@@ -26,7 +26,7 @@ namespace Settings
         // bike powers
         public static readonly int WARMUP = 75;
         public static readonly int NORMAL = 100;
-        public static readonly int WATTADDED = 25;
+        public static readonly int WATTADDED = 5;
         public static readonly int COOLINGDOWN = 75;
 
         // interval seconds

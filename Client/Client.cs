@@ -29,8 +29,10 @@ namespace Client
             Thread.Sleep(1000);
         }
 
-        public void ConnectBike()
+        public void ConnectBike(string name, string age)
         {
+            this.name = name;
+            this.age = Int32.Parse(age);
             bike = new BikeConnection();
             if (bike.Connected)
             {

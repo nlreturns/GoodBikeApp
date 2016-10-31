@@ -4,3 +4,9 @@ F:\School\GoodBikeApp\Settings\bin\Debug\Settings.pdb
 F:\School\GoodBikeApp\Settings\obj\Debug\Settings.csprojResolveAssemblyReference.cache
 F:\School\GoodBikeApp\Settings\obj\Debug\Settings.exe
 F:\School\GoodBikeApp\Settings\obj\Debug\Settings.pdb
+C:\Users\janwi\Downloads\GoodBikeApp-master\GoodBikeApp-master\Settings\bin\Debug\Settings.exe.config
+C:\Users\janwi\Downloads\GoodBikeApp-master\GoodBikeApp-master\Settings\bin\Debug\Settings.exe
+C:\Users\janwi\Downloads\GoodBikeApp-master\GoodBikeApp-master\Settings\bin\Debug\Settings.pdb
+C:\Users\janwi\Downloads\GoodBikeApp-master\GoodBikeApp-master\Settings\obj\Debug\Settings.csprojResolveAssemblyReference.cache
+C:\Users\janwi\Downloads\GoodBikeApp-master\GoodBikeApp-master\Settings\obj\Debug\Settings.exe
+C:\Users\janwi\Downloads\GoodBikeApp-master\GoodBikeApp-master\Settings\obj\Debug\Settings.pdb

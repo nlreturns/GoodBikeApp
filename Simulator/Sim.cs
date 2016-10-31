@@ -110,7 +110,7 @@ namespace BikeAppA3
         **/
         public void GenerateData()
         {
-            Pulse = rndInt(0, 120);
+            Pulse = rndInt(130, 200);
             RPM = rndInt(0, 110);
             Speed = rndDouble(0, 60);
             Distance = rndDouble(0, 999);

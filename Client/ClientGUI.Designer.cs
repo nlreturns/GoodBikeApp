@@ -32,6 +32,8 @@
             this.textBox = new System.Windows.Forms.TextBox();
             this.RPM = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.ClientName = new System.Windows.Forms.TextBox();
+            this.Age = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button1
@@ -57,6 +59,7 @@
             this.textBox.Multiline = true;
             this.textBox.Name = "textBox";
             this.textBox.ReadOnly = true;
+            this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox.Size = new System.Drawing.Size(532, 288);
             this.textBox.TabIndex = 1;
             // 
@@ -82,11 +85,27 @@
             this.textBox1.Text = "Omwentelingen";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // ClientName
+            // 
+            this.ClientName.Location = new System.Drawing.Point(12, 94);
+            this.ClientName.Name = "ClientName";
+            this.ClientName.Size = new System.Drawing.Size(100, 20);
+            this.ClientName.TabIndex = 4;
+            // 
+            // Age
+            // 
+            this.Age.Location = new System.Drawing.Point(12, 120);
+            this.Age.Name = "Age";
+            this.Age.Size = new System.Drawing.Size(100, 20);
+            this.Age.TabIndex = 5;
+            // 
             // ClientGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(556, 492);
+            this.Controls.Add(this.Age);
+            this.Controls.Add(this.ClientName);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.RPM);
             this.Controls.Add(this.textBox);
@@ -104,5 +123,7 @@
         private System.Windows.Forms.TextBox textBox;
         private System.Windows.Forms.TextBox RPM;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox ClientName;
+        private System.Windows.Forms.TextBox Age;
     }
 }
