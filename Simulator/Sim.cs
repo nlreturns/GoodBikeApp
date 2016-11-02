@@ -111,9 +111,9 @@ namespace BikeAppA3
         public void GenerateData()
         {
             Pulse = rndInt(130, 200);
-            RPM = rndInt(0, 110);
+            RPM = rndInt(40, 110);
             Speed = rndDouble(0, 60);
-            Distance = rndDouble(0, 999);
+            Distance += rndDouble(0, 999);
         }
 
         /**
@@ -134,7 +134,7 @@ namespace BikeAppA3
             var difference = 0 + min;
             double newDouble;
             newDouble = rnd.NextDouble()*range + difference;
-            return newDouble;
+            return Math.Round(newDouble, 2); ;
         }
 
         public static int rndInt(int min, int max)

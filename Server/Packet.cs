@@ -13,6 +13,7 @@ using System.Windows.Forms.VisualStyles;
 using System.Xml;
 using System.Xml.Serialization;
 using Client;
+using Server.Properties;
 using Client = Client.Client;
 
 namespace Server
@@ -49,8 +50,8 @@ namespace Server
                     msg = new Message(packet);
                     string received = msg.Text;
                     Console.WriteLine("[Server received] string: {0}", received);
-                    SubPath = string.Format("{0}\\{1:MM-dd}\\", msg.Text, DateTime.Now);
-                    ClientName = string.Format("{0}{1}-{2:yyyy-MM-dd-HH-mm}",SubPath, msg.Text, DateTime.Now);
+                    SubPath = string.Format("{0}{1}\\{2:MM-dd}\\", Settings.Data.PATH, msg.Text, DateTime.Now);
+                    ClientName = string.Format("{0}{1}-{2:yyyy-MM-dd-HH-mm}", SubPath, msg.Text, DateTime.Now);
                     break;
                 // receiving Object
                 case 100:

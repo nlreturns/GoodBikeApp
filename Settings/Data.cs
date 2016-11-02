@@ -30,7 +30,7 @@ namespace Settings
         public static readonly int COOLINGDOWN = 75;
 
         // interval seconds
-        public static readonly int INTERVAL = 1000;
+        public static readonly int INTERVAL = 500;
         public static readonly int CALLSAT1MIN = 60000/INTERVAL;
         public static readonly int CALLSAT2MIN = 120000/INTERVAL;
         public static readonly int CALLSAT3MIN = 180000/INTERVAL;
@@ -38,6 +38,9 @@ namespace Settings
         public static readonly int CALLSAT6MIN = 360000/INTERVAL;
         public static readonly int CALLSAT15SEC = 15000/INTERVAL;
         public static readonly int CALLSAT30SEC = 30000/INTERVAL;
+
+        // file saving
+        public static readonly string PATH = "C:\\Users\\Jan-Willem\\Desktop\\GoodBikeApp\\Data\\";
 
 
     }

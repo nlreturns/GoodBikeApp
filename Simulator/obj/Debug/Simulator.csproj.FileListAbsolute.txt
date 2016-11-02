@@ -19,3 +19,13 @@ C:\Users\janwi\Downloads\GoodBikeApp-master\GoodBikeApp-master\Simulator\bin\Deb
 C:\Users\janwi\Downloads\GoodBikeApp-master\GoodBikeApp-master\Simulator\bin\Debug\Settings.pdb
 C:\Users\janwi\Downloads\GoodBikeApp-master\GoodBikeApp-master\Simulator\bin\Debug\Newtonsoft.Json.xml
 C:\Users\janwi\Downloads\GoodBikeApp-master\GoodBikeApp-master\Simulator\obj\Debug\Simulator.csprojResolveAssemblyReference.cache
+C:\Users\Jan-Willem\Desktop\GoodBikeApp\Simulator\bin\Debug\Simulator.exe.config
+C:\Users\Jan-Willem\Desktop\GoodBikeApp\Simulator\obj\Debug\Simulator.exe
+C:\Users\Jan-Willem\Desktop\GoodBikeApp\Simulator\obj\Debug\Simulator.pdb
+C:\Users\Jan-Willem\Desktop\GoodBikeApp\Simulator\bin\Debug\Simulator.exe
+C:\Users\Jan-Willem\Desktop\GoodBikeApp\Simulator\bin\Debug\Simulator.pdb
+C:\Users\Jan-Willem\Desktop\GoodBikeApp\Simulator\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Jan-Willem\Desktop\GoodBikeApp\Simulator\bin\Debug\Settings.exe
+C:\Users\Jan-Willem\Desktop\GoodBikeApp\Simulator\bin\Debug\Settings.pdb
+C:\Users\Jan-Willem\Desktop\GoodBikeApp\Simulator\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Jan-Willem\Desktop\GoodBikeApp\Simulator\obj\Debug\Simulator.csprojResolveAssemblyReference.cache

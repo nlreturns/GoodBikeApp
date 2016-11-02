@@ -97,6 +97,10 @@
       <Project>{0ff92458-8404-44bd-bc3c-feadf18777fc}</Project>
       <Name>Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Settings\Settings.csproj">
+      <Project>{e7e68de3-a2ff-4d58-9ef0-d481c5a356f6}</Project>
+      <Name>Settings</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

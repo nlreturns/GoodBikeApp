@@ -34,7 +34,7 @@ namespace Client
             secondList.Add("1");
             Message packet2 = new Message(secondList);
             Client.conn.sendData(packet2.Data);
-            /*
+            //*
             TestClass sendObj = new TestClass();
             Message packet = new Message((object)sendObj);
             Client.conn.sendData(packet.Data);//*/
